@@ -15,7 +15,7 @@ jobs:
 
       - name: Build 🔧 # build with fgallery
         run: |
-          fgallery img build
+          fgallery -d img build
           find .
 
       - name: Deploy 🚀
