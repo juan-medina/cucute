@@ -9,10 +9,14 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install and Build 🔧 # install fgallery
+      - name: Install 🔧 # install fgallery
         run: |
           sudo apt-get install fgallery facedetect
+
+      - name: Build 🔧 # build with fgallery
+        run: |
           fgallery img build
+          find .
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
