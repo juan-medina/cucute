@@ -1,5 +1,5 @@
 name: GitHub Actions Gallery
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: deploying gallery action
 on: [push]
 jobs:
   build-and-deploy:
