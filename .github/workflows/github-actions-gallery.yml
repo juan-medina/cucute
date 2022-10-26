@@ -17,7 +17,7 @@ jobs:
 
       - name: Build 🔧 # build with sitelen-mute
         run: |
-          sitelen-mute --title "Cucute Gallery" --description "Cucute FFXIV Gallery"" --url https://juan-medina.github.io/cucute/ -d img build
+          sitelen-mute --title "Cucute Gallery" --description "Cucute FFXIV Gallery" --url https://juan-medina.github.io/cucute/ -d img build
           find .
 
       - name: Deploy 🚀
