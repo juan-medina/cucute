@@ -13,7 +13,7 @@ jobs:
         run: |
           sudo apt install cpanminus
           cpanm App::sitelenmute
-          export PATH="${PATH}:~/perl5/bin"
+          export PATH="${PATH}:/home/runner/perl5/bin"
 
       - name: Build 🔧 # build with sitelen-mute
         run: |
