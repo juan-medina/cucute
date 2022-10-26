@@ -9,13 +9,15 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install 🔧 # install fgallery
+      - name: Install 🔧 # install sitelenmute
         run: |
-          sudo apt-get install fgallery facedetect
+          sudo apt install cpanminus
+          cpanm App::sitelenmute
+          export PATH="${PATH}:~/perl5/bin"
 
-      - name: Build 🔧 # build with fgallery
+      - name: Build 🔧 # build with sitelen-mute
         run: |
-          fgallery -d img build
+          sitelen-mute --title "Cucute Gallery" --description "Cucute FFXIV Gallery"" --url https://juan-medina.github.io/cucute/ -d img build
           find .
 
       - name: Deploy 🚀
