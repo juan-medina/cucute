@@ -9,11 +9,20 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install 🔧 # install sitelenmute
+      - name: setup locallib
         run: |
-          sudo apt install cpanminus
-          cpanm App::sitelenmute
-          export PATH="${PATH}:/home/runner/perl5/bin"
+          PERL_LOCAL_LIB_ROOT="$HOME/perl5"
+          >>"$GITHUB_ENV" echo "PERL_LOCAL_LIB_ROOT=$PERL_LOCAL_LIB_ROOT"
+          >>"$GITHUB_ENV" echo "PERL5LIB=$PERL_LOCAL_LIB_ROOT/lib/perl5"
+          >>"$GITHUB_ENV" echo "PERL_MB_OPT=--install_base \"$PERL_LOCAL_LIB_ROOT/\""
+          >>"$GITHUB_ENV" echo "PERL_MM_OPT=INSTALL_BASE=$PERL_LOCAL_LIB_ROOT"
+          >>"$GITHUB_ENV" echo "PATH=$PERL_LOCAL_LIB_ROOT/bin:$PATH"
+
+      - name: install cpanminus
+        run: cpan App::cpanminus
+
+      - name: Install 🔧 # install sitelenmute
+        run: cpanm App::sitelenmute
 
       - name: Build 🔧 # build with sitelen-mute
         run: |
