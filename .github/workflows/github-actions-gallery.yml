@@ -6,10 +6,10 @@ jobs:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout project
         uses: actions/checkout@v3
 
-      - name: setup locallib
+      - name: Setup locallib
         run: |
           PERL_LOCAL_LIB_ROOT="$HOME/perl5"
           >>"$GITHUB_ENV" echo "PERL_LOCAL_LIB_ROOT=$PERL_LOCAL_LIB_ROOT"
@@ -18,18 +18,19 @@ jobs:
           >>"$GITHUB_ENV" echo "PERL_MM_OPT=INSTALL_BASE=$PERL_LOCAL_LIB_ROOT"
           >>"$GITHUB_ENV" echo "PATH=$PERL_LOCAL_LIB_ROOT/bin:$PATH"
 
-      - name: install cpanminus
+      - name: Install cpanminus
         run: cpan App::cpanminus
 
-      - name: Install 🔧 # install sitelenmute
+      - name: Install sitelenmute
         run: cpanm App::sitelenmute
 
-      - name: Build 🔧 # build with sitelen-mute
-        run: |
-          sitelen-mute --title "Cucute Gallery" --description "Cucute FFXIV Gallery" --url https://juan-medina.github.io/cucute/ -d img build
-          find .
+      - name: Install libraries
+        run: sudo apt install imagemagick p7zip liblcms2-utils exiftran jpegoptim pngcrush facedetect        
 
-      - name: Deploy 🚀
+      - name: Build with sitelen-mute
+        run: sitelen-mute --title "Cucute Gallery" --description "Cucute FFXIV Gallery" --url https://juan-medina.github.io/cucute/ -d img build
+
+      - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build # The folder the action should deploy.
